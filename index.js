@@ -34,14 +34,15 @@ app.get('/', (req, res) => {
 
 /* START CONTROLLERS HERE */
 
+const userController = require('.contollers/userController')
+app.use('/api/users/', userController)
 
+/* END CONTROLLERS HERE */
 app.use((err, req, res, next) => {
     const statusCode = res.statusCode || 500;
     const message = err.message || 'Internal Server Error';
     res.status(statusCode).send(message);
   });
-/* END CONTROLLERS HERE */
-
 //=============================================================================
 // START SERVER
 //=============================================================================
