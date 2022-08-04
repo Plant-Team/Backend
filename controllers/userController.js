@@ -8,10 +8,13 @@ const User = require('../models/User')
 
 // Add router to the router object.
 
-router.get('/', (req, res, next) => {
-    User.find({})
-    .then((users) => res.json(users))
-    .catch(next)
+router.get('/', async(req,res,next) => {
+    try{
+        const users = await User.find({})
+        res.json(users)
+    } catch(err) {
+        next(err)
+    }
 })
 
 
