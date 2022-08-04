@@ -10,8 +10,9 @@ const User = require('../models/User')
 
 router.get('/', (req, res, next) => {
     User.find({})
-    .then((bookmarks) => res.json(bookmarks))
+    .then((users) => res.json(users))
     .catch(next)
 })
+
 
 module.exports = router
