@@ -32,7 +32,11 @@ app.get('/', (req, res) => {
 
 /* START CONTROLLERS HERE */
 
+<<<<<<< HEAD
 const userController = require('./controllers/userController')
+=======
+const userController = require('./controllers/userController.js')
+>>>>>>> e62a0ec (testing)
 app.use('/api/users/', userController)
 
 const plantController = require('./controllers/plantController')
