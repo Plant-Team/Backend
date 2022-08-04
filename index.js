@@ -7,6 +7,8 @@ const cors = require('cors')
 // Instantiate Express
 //=============================================================================
 const app = express();
+require('dotenv').config()
+require('./db/connection')
 app.set('port', process.env.PORT || 3000)
 //=============================================================================
 // Middleware
@@ -34,8 +36,8 @@ app.get('/', (req, res) => {
 
 /* START CONTROLLERS HERE */
 
-const userController = require('.contollers/userController')
-app.use('/api/users/', userController)
+// const userController = require('./controllers/userController')
+// app.use('/api/users/', userController)
 
 /* END CONTROLLERS HERE */
 app.use((err, req, res, next) => {
