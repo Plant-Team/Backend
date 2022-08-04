@@ -38,6 +38,9 @@ app.get('/', (req, res) => {
 const userController = require('./controllers/userController')
 app.use('/api/users/', userController)
 
+const plantController = require('./controllers/plantController')
+app.use('/api/plants/', plantController)
+
 /* END CONTROLLERS HERE */
 app.use((err, req, res, next) => {
     const statusCode = res.statusCode || 500;

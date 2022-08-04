@@ -14,7 +14,7 @@ router.get('/', async(req,res,next) => {
 })
 
 
-router.post('/', (req,res,next) => {
+router.post('/', async(req,res,next) => {
     try{
         const newPlant = await Plant.create(req.body)
         res.json(newPlant)
@@ -24,7 +24,7 @@ router.post('/', (req,res,next) => {
 
 })
 
-router.put('/:id', (req,res,next) => {
+router.put('/:id', async(req,res,next) => {
     try{
         const plantUpdated = await Plant.findByIdAndUpdate(
             req.params.id,
