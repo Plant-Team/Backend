@@ -7,7 +7,6 @@ const cors = require('cors')
 // Instantiate Express
 //=============================================================================
 const app = express();
-require('dotenv').config()
 require('./db/connection')
 app.set('port', process.env.PORT || 3000)
 //=============================================================================
@@ -16,9 +15,9 @@ app.set('port', process.env.PORT || 3000)
 app.use(cors())
 
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
-  })
+// app.get('/', (req, res) => {
+//     res.send('Hello World')
+//   })
 // `express.json` parses application/json request data and
 //  adds it to the request object as request.body
 app.use(express.json())
@@ -36,8 +35,8 @@ app.get('/', (req, res) => {
 
 /* START CONTROLLERS HERE */
 
-// const userController = require('./controllers/userController')
-// app.use('/api/users/', userController)
+const userController = require('./controllers/userController')
+app.use('/api/users/', userController)
 
 /* END CONTROLLERS HERE */
 app.use((err, req, res, next) => {
