@@ -1,30 +1,29 @@
-
 const mongoose = require("../db/connection");
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
-      unique: true,
-      required: true,
+      unique:true,
+      required:true,
+    },
+    username: {
+      type: String,
+      unique:true,
     },
     firstname: {
       type: String,
-      required: true,
+      // required: true,
     },
     lastname: {
       type: String,
-      required: true,
+      // required: true,
     },
     password: {
       type: String,
       minLength: 8,
       required: true,
-    }
+    },
   },
   { timestamps: true }
 );

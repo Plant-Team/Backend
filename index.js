@@ -3,6 +3,8 @@
 //=============================================================================
 const express = require('express');
 const cors = require('cors')
+const passport = require("passport")
+const jwt = require('jsonwebtoken')
 //=============================================================================
 // Instantiate Express
 //=============================================================================
@@ -12,19 +14,14 @@ app.set('port', process.env.PORT || 3000)
 //=============================================================================
 // Middleware
 //=============================================================================
-app.use(cors())
-
-
-// app.get('/', (req, res) => {
-//     res.send('Hello World')
-//   })
-// `express.json` parses application/json request data and
-//  adds it to the request object as request.body
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // `express.urlencoded` parses x-ww-form-urlencoded request data and
 //  adds it to the request object as request.body
-app.use(express.urlencoded({ extended: true }))
-
+app.use(cors())
+// `express.json` parses application/json request data and
+//  adds it to the request object as request.body
+app.use(passport.initialize())
 //=============================================================================
 // ROUTES
 //=============================================================================

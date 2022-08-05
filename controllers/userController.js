@@ -1,6 +1,7 @@
 //controlers/userController.js
 //require the Express module
 const express = require('express')
+const bcrypt= require('bcrypt')
 // instantiate a router
 const router = express.Router()
 // import the user model
@@ -17,15 +18,15 @@ router.get('/', async(req,res,next) => {
     }
 })
 
-router.post('/', async(req,res,next) => {
-    try{
-        const newUser = await User.create(req.body)
-        res.json(newUser)
-    } catch(err) {
-        next(err)
-    }
+// router.post('/', async(req,res,next) => {
+//     try{
+//         const newUser = await User.create(req.body)
+//         res.json(newUser)
+//     } catch(err) {
+//         next(err)
+//     }
 
-})
+// })
 
 router.put('/:id', async(req,res,next) => {
     try{
@@ -57,6 +58,28 @@ router.delete('/:id', async(req,res,next) => {
     } catch(err) {
         next(err)
     }
+})
+
+
+// Signing up
+router.post('/signup', async (req, res, next) => {
+    const { email, username, password, firstname, lastname } = req.body
+    try {
+        const password = await bcrypt.hash(req.body.password, 10)
+        const newUser = await User.create({ email, username, password, firstname, lastname })
+        return res.status(201).json(newUser)
+    } catch (error) {
+        return next(error)
+    }
+})
+
+// Signing in
+router.post('/signin', (req, res, next) => {
+    const { username, password } = req.body
+    User.findOne({ username, password })
+    .then((user) => createUserToken(req, user))
+    .then((token) => res.json({ token }))
+    .catch(next)
 })
 
 module.exports = router
