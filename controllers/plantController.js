@@ -13,6 +13,11 @@ router.get('/', async(req,res,next) => {
     }
 })
 
+router.get('/:id', (req, res) => {
+	Plant.findById({ _id: req.params.id }).then((plant) => {
+		res.json(plant);
+	});
+});
 
 router.post('/', async(req,res,next) => {
     try{
@@ -24,6 +29,15 @@ router.post('/', async(req,res,next) => {
 
 })
 
+router.post('/', async(req,res,next) => {
+    try{
+        const newPlant = await Plant.create(req.body)
+        res.json(newPlant)
+    } catch(err) {
+        next(err)
+    }
+
+})
 router.put('/:id', async(req,res,next) => {
     try{
         const plantUpdated = await Plant.findByIdAndUpdate(
