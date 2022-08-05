@@ -7,6 +7,10 @@ const router = express.Router()
 // import the user model
 const User = require('../models/User')
 
+// require createUserToken
+
+const { createUserToken } = require('../middleware/auth')
+
 // Add router to the router object.
 
 router.get('/', async(req,res,next) => {
@@ -75,8 +79,7 @@ router.post('/signup', async (req, res, next) => {
 
 // Signing in
 router.post('/signin', (req, res, next) => {
-    const { username, password } = req.body
-    User.findOne({ username, password })
+    User.findOne({ username: req.body.username })
     .then((user) => createUserToken(req, user))
     .then((token) => res.json({ token }))
     .catch(next)
