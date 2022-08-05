@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const Plant = require('../models/Plant')
+const { requireToken } = require('../middleware/auth')
 
 // Routes
-router.get('/', async(req,res,next) => {
+router.get('/', requireToken, async(req,res,next) => {
     try{
         const plant = await Plant.find({})
         res.json(plant)
@@ -13,13 +14,13 @@ router.get('/', async(req,res,next) => {
     }
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', requireToken, (req, res) => {
 	Plant.findById({ _id: req.params.id }).then((plant) => {
 		res.json(plant);
 	});
 });
 
-router.post('/', async(req,res,next) => {
+router.post('/', requireToken, async(req,res,next) => {
     try{
         const newPlant = await Plant.create(req.body)
         res.json(newPlant)
@@ -29,7 +30,7 @@ router.post('/', async(req,res,next) => {
 
 })
 
-router.post('/', async(req,res,next) => {
+router.post('/', requireToken, async(req,res,next) => {
     try{
         const newPlant = await Plant.create(req.body)
         res.json(newPlant)
@@ -38,7 +39,7 @@ router.post('/', async(req,res,next) => {
     }
 
 })
-router.put('/:id', async(req,res,next) => {
+router.put('/:id', requireToken, async(req,res,next) => {
     try{
         const plantUpdated = await Plant.findByIdAndUpdate(
             req.params.id,
