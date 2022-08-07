@@ -4,12 +4,12 @@ const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      unique:true,
-      required:true,
+      unique:[true, "Email is in use"],
+      required: [true, "Please provide an Email"]
     },
     username: {
       type: String,
-      unique:true,
+      unique:[true, "Username is taken"]
     },
     firstname: {
       type: String,
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       minLength: 8,
-      required: true,
+      required: [true, "Password is required"]
     },
   },
   { timestamps: true }

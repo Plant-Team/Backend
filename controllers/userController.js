@@ -6,6 +6,7 @@ const bcrypt= require('bcrypt')
 const router = express.Router()
 // import the user model
 const User = require('../models/User')
+const jsonwt = require('jsonwebtoken')
 
 // require createUserToken
 
@@ -64,7 +65,6 @@ router.delete('/:id', async(req,res,next) => {
     }
 })
 
-
 // Signing up
 router.post('/signup', async (req, res, next) => {
     const { email, username, password, firstname, lastname } = req.body
@@ -72,7 +72,7 @@ router.post('/signup', async (req, res, next) => {
         const password = await bcrypt.hash(req.body.password, 10)
         const newUser = await User.create({ email, username, password, firstname, lastname })
         return res.status(201).json(newUser)
-    } catch (error) {
+    }  catch (error) {
         return next(error)
     }
 })
