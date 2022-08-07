@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors')
 const passport = require("passport")
 const jwt = require("jsonwebtoken")
-const auth = require('./authorization')
+const auth = require('./middleware/auth')
 
 //=============================================================================
 // Instantiate Express

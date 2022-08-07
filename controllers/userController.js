@@ -65,8 +65,6 @@ router.delete('/:id', async(req,res,next) => {
     }
 })
 
-const { createUserToken } = require('../authorization');
-
 // Signing up
 router.post('/signup', async (req, res, next) => {
     const { email, username, password, firstname, lastname } = req.body
