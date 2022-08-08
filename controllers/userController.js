@@ -12,8 +12,9 @@ const jsonwt = require('jsonwebtoken')
 
 const { createUserToken } = require('../middleware/auth')
 
-// Add router to the router object.
+// ROUTES
 
+//All users
 router.get('/', async(req,res,next) => {
     try{
         const users = await User.find({})
@@ -23,16 +24,14 @@ router.get('/', async(req,res,next) => {
     }
 })
 
-// router.post('/', async(req,res,next) => {
-//     try{
-//         const newUser = await User.create(req.body)
-//         res.json(newUser)
-//     } catch(err) {
-//         next(err)
-//     }
+//Get users by ID
+router.get("/:id", (req, res, next) => {
+User.findById(req.params.id)
+.then((user) => res.json(user))
+.catch(() => res.sendStatus(404))
+  });
 
-// })
-
+// Edit User
 router.put('/:id', async(req,res,next) => {
     try{
         const userUpdated = await User.findByIdAndUpdate(
@@ -51,7 +50,7 @@ router.put('/:id', async(req,res,next) => {
     }
 })
 
-
+// Delete user
 router.delete('/:id', async(req,res,next) => {
     try{
         const deleteUser = await User.findByIdAndDelete(req.params.id)

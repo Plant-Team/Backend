@@ -4,12 +4,12 @@ const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      unique:[true, "Email is in use"],
-      required: [true, "Please provide an Email"]
+      unique: [true, "Email is in use"],
+      required: [true, "Please provide an Email"],
     },
     username: {
       type: String,
-      unique:[true, "Username is taken"]
+      unique: [true, "Username is taken"],
     },
     firstname: {
       type: String,
@@ -22,10 +22,15 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       minLength: 8,
-      required: [true, "Password is required"]
+      required: [true, "Password is required"],
     },
+    plants: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Plant", required: false },
+    ],
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
