@@ -40,6 +40,3 @@ By far the greatest challenge of hooking up the front and back ends was the Auth
 
 [CLICK THIS LINK TO VISIT THE LIVE SITE](https://secret-refuge-99565.herokuapp.com/api/plants)
 
-## UNSOLVED ISSUES
-Users cannot edit their passwords, as we need to de-encrypt the password in order to edit it. This was a stretch goal feature that didn't pan out since Auth is very complicated.
-
