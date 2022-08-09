@@ -2,40 +2,60 @@ const express = require("express");
 const router = express.Router();
 const Plant = require("../models/Plant");
 const User = require("../models/User");
-// const { requireToken } = require('../middleware/auth')
+
+const { requireToken } = require("../middleware/auth");
 
 // Routes
 
 // All plants
-router.get("/", async (req, res, next) => {
+router.get("/",  async (req, res, next) => {
   try {
-    const plant = await Plant.find({});
-    res.json(plant);
+    const plants = await Plant.find({});
+    res.json(plants);
   } catch (err) {
     next(err);
   }
 });
 
 // Plant by ID
-router.get("/:id", (req, res) => {
-  Plant.findById({ _id: req.params.id }).then((plant) => {
+router.get("/:id", async (req, res, next) => {
+  try {
+    const plant = await Plant.findById({ _id: req.params.id });
     res.json(plant);
-  });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.post('/', async(req,res,next) => {
-    try{
-        const newPlant = await Plant.create(req.body)
-        const user = await User.updateOne({_id:newPlant.owner}, { $push:{plants:newPlant._id} })
-        res.json(newPlant)
-    } catch(err) {
-        next(err)
-    }
+// Searching for plant
+// router.get("/search", async (req, res) => {
+//   try {
+//     const allPlants = await Plant.find({ name: req.body.query });
+//     if (!allPlants || allPlants.length === 0)
+//       res.status(400).send({ error: "No Plant was found" });
+//     res.status(200).send(allPlants);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
-})
+// Post plant + add plant ID to owner
+router.post("/", requireToken, async (req, res, next) => {
+  try {
+    const newPlant = await Plant.create(req.body);
+    const user = await User.updateOne(
+      { _id: newPlant.owner },
+      { $push: { plants: newPlant._id } },
+      { new: true }
+    );
+    res.json(newPlant);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Update plant
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", requireToken, async (req, res, next) => {
   try {
     const plantUpdated = await Plant.findByIdAndUpdate(
       req.params.id,
@@ -53,9 +73,8 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-
 // Delete plant
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", requireToken, async (req, res, next) => {
   try {
     const deletePlant = await Plant.findByIdAndDelete(req.params.id);
     if (deletePlant) {
