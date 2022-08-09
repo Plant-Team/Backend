@@ -11,11 +11,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: [true, "Username is taken"],
     },
-    firstname: {
+    firstName: {
       type: String,
       // required: true,
     },
-    lastname: {
+    lastName: {
       type: String,
       // required: true,
     },
