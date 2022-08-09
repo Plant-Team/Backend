@@ -14,7 +14,7 @@ const plantSchema = new Schema({
 })
 
 const Plant = mongoose.model('Plant', plantSchema)
-
+plantSchema.index({ request: 'text '})
 module.exports = Plant;
 
 
