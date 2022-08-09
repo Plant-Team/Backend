@@ -22,6 +22,7 @@ router.use(session({
     store: store,
   }))
 
+
 // require createUserToken
 
 const { createUserToken, requireToken } = require("../middleware/auth");
@@ -29,6 +30,7 @@ const { createUserToken, requireToken } = require("../middleware/auth");
 // ROUTES
 
 //All users
+<<<<<<< HEAD
 router.get("/", async (req, res, next) => {
   try {
     const users = await User.find({});
@@ -49,6 +51,23 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+=======
+router.get('/', async(req,res,next) => {
+    try{
+        const users = await User.find({})
+        res.json(users)
+    } catch(err) {
+        next(err)
+    }
+})
+
+//Get users by ID
+router.get("/:id", (req, res, next) => {
+User.findById(req.params.id)
+.then((user) => res.json(user))
+.catch(() => res.sendStatus(404))
+  });
+>>>>>>> 1ff0444 (adding get by id to heroku)
 
 // Edit User
 router.put("/:id", async (req, res, next) => {
