@@ -8,7 +8,7 @@ const { requireToken } = require("../middleware/auth");
 // Routes
 
 // All plants
-router.get("/", async (req, res, next) => {
+router.get("/",requireToken, async (req, res, next) => {
   try {
     const plants = await Plant.find({});
     res.json(plants);
@@ -18,7 +18,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // Plant by ID
-router.get("/:id", async (req, res, next) => {
+router.get("/:id",requireToken, async (req, res, next) => {
   try {
     const plant = await Plant.findById({ _id: req.params.id });
     res.json(plant);
