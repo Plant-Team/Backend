@@ -12,14 +12,17 @@ app.set("port", process.env.PORT || 4000);
 // Middleware
 //=============================================================================
 const mongoURI = process.env.DATABASE_URL;
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(passport.initialize());
+
 const store = new MongoDBSession({
   uri: mongoURI, 
   collection: 'my sessions'
 })
+
 app.use(
   session({
     secret: "this is will give us cookie",
