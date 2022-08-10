@@ -12,6 +12,7 @@ router.get("/", requireToken, async (req, res, next) => {
   try {
     const plants = await Plant.find({});
     res.json(plants);
+    console.log('hello')
   } catch (err) {
     next(err);
   }
