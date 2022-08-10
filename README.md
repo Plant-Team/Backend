@@ -13,7 +13,7 @@ If you need to change some of your account details, you can go to your account t
 ![alt text](https://github.com/Plant-Team/Frontend/blob/main/readme/Screenshot%202022-08-10%20at%2011.36.04%20AM.png?raw=true)
 
 ## TECHNOLOGIES USED
-The front end of this application is built in React, and uses HTML, CSS, Bootstrap, and JavaScript.
+The back end of this application is built in Mode.js, and uses Express, MongoDB, and Mongoose.
 
 INSTALLATION INSTRUCTIONS
 All you need to work PLANT WORLD is a modern web browser and you're good to go!
