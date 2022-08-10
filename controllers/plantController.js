@@ -8,7 +8,7 @@ const { requireToken } = require("../middleware/auth");
 // Routes
 
 // All plants
-router.get("/",  async (req, res, next) => {
+router.get("/", requireToken, async (req, res, next) => {
   try {
     const plants = await Plant.find({});
     res.json(plants);
@@ -18,7 +18,7 @@ router.get("/",  async (req, res, next) => {
 });
 
 // Plant by ID
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", requireToken, async (req, res, next) => {
   try {
     const plant = await Plant.findById({ _id: req.params.id });
     res.json(plant);
@@ -28,16 +28,15 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // Searching for plant
-// router.get("/search", async (req, res) => {
-//   try {
-//     const allPlants = await Plant.find({ name: req.body.query });
-//     if (!allPlants || allPlants.length === 0)
-//       res.status(400).send({ error: "No Plant was found" });
-//     res.status(200).send(allPlants);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+router.get("/search/:name", async (req, res) => {
+  try {
+    const plantName = req.params.name
+    const findPlant = await Plant.find({ name:{ $regex:'.*' + plantName + '.*'} })
+    res.json(findPlant)
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Post plant + add plant ID to owner
 router.post("/", requireToken, async (req, res, next) => {

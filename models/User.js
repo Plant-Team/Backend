@@ -30,13 +30,13 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    toJSON: {
-      virtuals: true,
-      transform: (_doc, ret) => {
-        delete ret.password;
-        return ret;
-      },
-    },
+    // toJSON: {
+    //   virtuals: true,
+    //   transform: (_doc, ret) => {
+    //     delete ret.password;
+    //     return ret;
+    //   },
+    // },
   }
 );
 

@@ -2,29 +2,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const User = require("../models/User");
-const session = require('express-session')
-const MongoDBSession = require('connect-mongodb-session')(session)
-const passport = require('../middleware/auth')
 
-// router.use(passport.initialize())
-
-
-const mongoURI = process.env.DATABASE_URL;
-const store = new MongoDBSession({
-    uri: mongoURI, 
-    collection: 'my sessions'
-  })
-
-router.use(session({
-    secret: 'cookie for coin?',
-    resave: false,
-    saveUninitialized: true,
-    store: store,
-  }))
-
-// require createUserToken
-
-const { createUserToken, requireToken } = require("../middleware/auth");
+const { createUserToken } = require("../middleware/auth");
 
 // ROUTES
 
@@ -41,7 +20,6 @@ router.get("/", async (req, res, next) => {
 //Get users by ID
 router.get("/:id", async (req, res, next) => {
   try {
-
     const user = await User.findById(req.params.id);
 
     res.json(user);
@@ -81,7 +59,7 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-// Signing up
+//Signing up
 router.post("/signup", async (req, res, next) => {
   const { email, username, password, firstname, lastname } = req.body;
   try {
@@ -101,22 +79,18 @@ router.post("/signup", async (req, res, next) => {
 
 // Signing in
 router.post("/signin", (req, res, next) => {
-    User.findOne({ username: req.body.username })
+  User.findOne({ username: req.body.username })
     .then((user) => createUserToken(req, user))
     .then((token) => res.json({ token }))
     .catch(next);
 });
 
 // Logout
-router.post('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if(err) throw err
-        res.redirect('/')
-    })
-})
+// router.post("/logout", (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) throw err;
+//     res.redirect("/");
+//   });
+// });
 
 module.exports = router;
-
-
-
-

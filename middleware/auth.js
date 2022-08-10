@@ -31,6 +31,7 @@ const secret =
             !req.body.password ||
             !bcrypt.compareSync(req.body.password, user.password)
         ) {
+            console.log(user)
             const err = new Error('The provided username or password is incorrect');
             err.statusCode = 422;
             throw err;
