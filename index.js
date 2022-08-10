@@ -2,8 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
 
-const dotenv = require('dotenv').config()
-
 const app = express();
 require("./db/connection");
 app.set("port", process.env.PORT || 4000);
@@ -11,13 +9,13 @@ app.set("port", process.env.PORT || 4000);
 //=============================================================================
 // Middleware
 //=============================================================================
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
+app.use(passport.initialize());
 
 
-// secret: What we actually will be giving the user on our site as a session cookie
-// resave: Save the session even if it's modified, make this false
-// saveUninitialized: If we have a new session, we save it, therefore making that true
 
-  
 app.get("/", (req, res) => {
   res.redirect("/api/plants");
 });
