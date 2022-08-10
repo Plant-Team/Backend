@@ -15,7 +15,6 @@ app.use(cors());
 app.use(passport.initialize());
 
 
-
 app.get("/", (req, res) => {
   res.redirect("/api/plants");
 });
