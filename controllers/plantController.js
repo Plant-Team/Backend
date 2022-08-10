@@ -28,10 +28,10 @@ router.get("/:id", requireToken, async (req, res, next) => {
 });
 
 // Searching for plant
-router.get("/search/:name", async (req, res) => {
+router.get("/search/:name", async (req, res, next) => {
   try {
     const plantName = req.params.name
-    const findPlant = await Plant.find({ name:{ $regex:'.*' + plantName + '.*'} })
+    const findPlant = await Plant.find({ name:{ $regex: plantName, $options:/i/ } })
     res.json(findPlant)
   } catch (err) {
     next(err);

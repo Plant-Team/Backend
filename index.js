@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
-const app = express();
 
+const app = express();
 require("./db/connection");
 app.set("port", process.env.PORT || 4000);
 
@@ -12,12 +12,11 @@ app.set("port", process.env.PORT || 4000);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-
 app.use(passport.initialize());
-app.use(passport.session())
+// Add a session
+
 
 app.get("/", (req, res) => {
-  console.log(req.session)
   res.redirect("/api/plants");
 });
 
