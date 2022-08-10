@@ -43,7 +43,7 @@ In our Frontend repo there are more details about the approach to creating our B
 
 By far the greatest challenge of hooking up the front and back ends was the Authorization in order to pull information that required permissions. What we ended up with was pretty basic, but it works. There's still a lot to learn about the relationship between Frontend and Backend when Auth is in between the two, and in the future, we should probably have left Authorization to the end of the project.
 
-[CLICK THIS LINK TO VISIT THE LIVE SITE](https://secret-refuge-99565.herokuapp.com/api/plants)
+[CLICK THIS LINK TO VISIT THE LIVE API](https://secret-refuge-99565.herokuapp.com/api/plants)
 
 [CLICK THIS LINK TO VISIT PLANNING STAGES](https://media.git.generalassemb.ly/user/43502/files/29c0fa4a-13a8-4c74-bf04-4829dc3c3af4)
 
