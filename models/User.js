@@ -28,7 +28,16 @@ const userSchema = new mongoose.Schema(
       { type: mongoose.Schema.Types.ObjectId, ref: "Plant", required: false },
     ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: (_doc, ret) => {
+        delete ret.password;
+        return ret;
+      },
+    },
+  }
 );
 
 const User = mongoose.model("User", userSchema);
