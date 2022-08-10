@@ -1,8 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
+
 // const session = require("express-session");
 // const MongoDBSession = require('connect-mongodb-session')(session)
+
+
 
 const app = express();
 require("./db/connection");
@@ -16,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(passport.initialize());
+
 // const store = new MongoDBSession({
 //   uri: mongoURI, 
 //   collection: 'my sessions'
@@ -29,6 +33,7 @@ app.use(passport.initialize());
 //   })
 //   );
   
+
 app.get("/", (req, res) => {
   res.redirect("/api/plants");
 });
@@ -49,3 +54,5 @@ app.use((err, req, res, next) => {
 app.listen(app.get("port"), () => {
   console.log(`PORT: ${app.get("port")}`);
 });
+
+
