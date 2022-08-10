@@ -1,11 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
-
-// const session = require("express-session");
-// const MongoDBSession = require('connect-mongodb-session')(session)
-
-
+const session = require("express-session");
 
 const app = express();
 require("./db/connection");
@@ -14,30 +10,29 @@ app.set("port", process.env.PORT || 4000);
 //=============================================================================
 // Middleware
 //=============================================================================
-const mongoURI = process.env.DATABASE_URL;
+const thisSession = process.env.DATABASE_URL;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(passport.initialize());
+// Add a session
+app.use(passport.session())
 
-// const store = new MongoDBSession({
-//   uri: mongoURI, 
-//   collection: 'my sessions'
-// })
-// app.use(
-//   session({
-//     secret: "this is will give us cookie",
-//     resave: false,
-//     saveUninitialized: false,
-//     store: store,
-//   })
-//   );
-  
+// secret: What we actually will be giving the user on our site as a session cookie
+// resave: Save the session even if it's modified, make this false
+// saveUninitialized: If we have a new session, we save it, therefore making that true
+const sessionObject = {
+  secret: thisSession,
+  resave: false,
+  saveUninitialized: true,
+};
+
+app.use(session(sessionObject));
+
 
 app.get("/", (req, res) => {
   res.redirect("/api/plants");
 });
-
 
 const userController = require("./controllers/userController");
 app.use("/api/users/", userController);
@@ -54,5 +49,3 @@ app.use((err, req, res, next) => {
 app.listen(app.get("port"), () => {
   console.log(`PORT: ${app.get("port")}`);
 });
-
-

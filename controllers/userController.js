@@ -2,8 +2,15 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const User = require("../models/User");
-const jsonwt = require("jsonwebtoken");
-const { JWT_SECRET } = process.env;
+const session = require('express-session')
+
+const thisSession = process.env.DATABASE_URL;
+const sessionObject = {
+    secret: thisSession,
+    resave: false,
+    saveUninitialized: true,
+  };
+router.use(session(sessionObject))
 
 // require createUserToken
 
