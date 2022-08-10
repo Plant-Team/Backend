@@ -24,7 +24,9 @@ router.get("/", async (req, res, next) => {
 //Get users by ID
 router.get("/:id", async (req, res, next) => {
   try {
-    const uer = await User.findById(req.params.id);
+
+    const user = await User.findById(req.params.id);
+
     res.json(user);
   } catch (err) {
     next(err);
@@ -89,11 +91,16 @@ router.post("/signin", (req, res, next) => {
 });
 
 // Logout
-router.post('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if(err) throw err
-        res.redirect('/')
-    })
-})
+
+// router.post('/logout', (req, res) => {
+//     req.session.destroy((err) => {
+//         if(err) throw err
+//         res.redirect('/')
+//     })
+// })
 
 module.exports = router;
+
+
+
+
