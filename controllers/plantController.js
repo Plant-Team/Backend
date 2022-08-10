@@ -8,7 +8,7 @@ const { requireToken } = require("../middleware/auth");
 // Routes
 
 // All plants
-router.get("/", async (req, res, next) => {
+router.get("/",  async (req, res, next) => {
   try {
     const plants = await Plant.find({});
     res.json(plants);

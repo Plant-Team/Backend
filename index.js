@@ -29,6 +29,7 @@ const sessionObject = {
 
 app.use(session(sessionObject));
 
+
 app.get("/", (req, res) => {
   res.redirect("/api/plants");
 });
